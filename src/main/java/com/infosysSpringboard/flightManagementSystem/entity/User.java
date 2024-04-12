@@ -24,7 +24,12 @@ public class User {
     @Column(name = "user_email")
     private String userEmail;
 
+<<<<<<< HEAD
     public User(String userType, String userName, String userPassword, String userPhone, String userEmail) {
+=======
+    public User(int userId, String userType, String userName, String userPassword, String userPhone, String userEmail) {
+        this.userId = userId;
+>>>>>>> origin/master
         this.userType = userType;
         this.userName = userName;
         this.userPassword = userPassword;
