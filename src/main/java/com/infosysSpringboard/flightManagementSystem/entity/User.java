@@ -3,7 +3,9 @@ package com.infosysSpringboard.flightManagementSystem.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
@@ -23,5 +25,5 @@ public class User{
             joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "userId"),
             inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"))
 
-    private Set<Role> roles;
+    private List<Role> roles;
 }

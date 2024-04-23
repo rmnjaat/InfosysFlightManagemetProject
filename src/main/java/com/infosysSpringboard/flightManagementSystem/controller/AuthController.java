@@ -4,7 +4,6 @@ import com.infosysSpringboard.flightManagementSystem.dao.RoleRepository;
 import com.infosysSpringboard.flightManagementSystem.dao.UserRepository;
 import com.infosysSpringboard.flightManagementSystem.dto.LoginDto;
 import com.infosysSpringboard.flightManagementSystem.dto.RegisterDto;
-import com.infosysSpringboard.flightManagementSystem.entity.Role;
 import com.infosysSpringboard.flightManagementSystem.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
+import java.util.Arrays;
 
 @RestController
 public class AuthController {
@@ -39,6 +38,8 @@ public class AuthController {
     public ResponseEntity<String> userLogin(@RequestBody LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getUserNameOrEmail(), loginDto.getPassword()));
+
+
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -61,11 +62,8 @@ public class AuthController {
         user.setPhone(registerDto.getPhone());
         user.setEmail(registerDto.getEmail());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
-        Role role = new Role();
-        role.setName(registerDto.getUserType());
-        roleRepository.save(role);
-        Role roles = roleRepository.findByName(role.getName()).get();
-        user.setRoles(Collections.singleton(roles));
+
+        user.setRoles(Arrays.asList(roleRepository.findByName(user.getUserType())));
         userRepository.save(user);
 
         return new ResponseEntity<>("User registered successfull", HttpStatus.OK);
