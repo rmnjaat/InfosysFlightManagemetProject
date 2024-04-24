@@ -34,6 +34,8 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
+
     @PostMapping("/login")
     public ResponseEntity<String> userLogin(@RequestBody LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
@@ -62,7 +64,6 @@ public class AuthController {
         user.setPhone(registerDto.getPhone());
         user.setEmail(registerDto.getEmail());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
-
         user.setRoles(Arrays.asList(roleRepository.findByName(user.getUserType())));
         userRepository.save(user);
 

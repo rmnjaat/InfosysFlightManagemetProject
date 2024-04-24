@@ -47,12 +47,15 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/users").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/flights").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/flights").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/flights/**").hasRole("ADMIN")
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/register").permitAll()
                         .anyRequest().authenticated());
         http.httpBasic(Customizer.withDefaults());
         http.csrf(csrf -> csrf.disable());
-
+        http.logout(logout-> logout.permitAll());
         return http.build();
     }
 
