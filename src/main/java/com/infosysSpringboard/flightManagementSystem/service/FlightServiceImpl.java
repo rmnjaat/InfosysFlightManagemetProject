@@ -22,6 +22,10 @@ public class FlightServiceImpl implements FlightService{
 
     @Override
     public List<Flight> modifyFlight(Flight flight) {
+        Optional<Flight> result = flightRepository.findById(flight.getFlightNumber());
+        if(result.isEmpty()){
+            throw new RuntimeException("Flight does not exist to modify");
+        }
         flightRepository.save(flight);
         return flightRepository.findAll();
     }
@@ -56,5 +60,13 @@ public class FlightServiceImpl implements FlightService{
         }
         flightRepository.delete(flight);
         return flightRepository.findAll();
+    }
+
+    @Override
+    public boolean validateFlight(Flight flight) {
+        if(flightRepository.existsByFlightModel(flight.getFlightModel()) || flightRepository.existsByCarrierName(flight.getCarrierName())){
+            return true;
+        }
+        return false;
     }
 }

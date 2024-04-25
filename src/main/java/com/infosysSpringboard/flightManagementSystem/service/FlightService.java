@@ -11,6 +11,5 @@ public interface FlightService {
     Flight findFlight(Integer number);
     List<Flight> viewFlights();
     List<Flight> deleteFlight(Integer number);
-
-
+    boolean validateFlight(Flight flight);
 }

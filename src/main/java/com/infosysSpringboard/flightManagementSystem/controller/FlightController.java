@@ -25,12 +25,16 @@ public class FlightController {
 
     @PostMapping("/flights")
     public List<Flight> addFlight(@RequestBody Flight flight){
+        if(flightService.validateFlight(flight)){
+            throw new RuntimeException("Flight with similar attributes already exist");
+        }
         flightService.addFlight(flight);
         return  flightService.viewFlights();
     }
 
     @PutMapping("/flights")
     public List<Flight> modifyFlight(@RequestBody Flight flight){
+
         flightService.addFlight(flight);
         return  flightService.viewFlights();
     }
