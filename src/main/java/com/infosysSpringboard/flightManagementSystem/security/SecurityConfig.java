@@ -9,7 +9,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -50,6 +49,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/flights").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/flights").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/flights/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/schedule/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/schedule").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/schedule").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/schedule/**").hasRole("ADMIN")
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/register").permitAll()
                         .anyRequest().authenticated());

@@ -3,9 +3,7 @@ package com.infosysSpringboard.flightManagementSystem.controller;
 import com.infosysSpringboard.flightManagementSystem.dao.RoleRepository;
 import com.infosysSpringboard.flightManagementSystem.entity.User;
 import com.infosysSpringboard.flightManagementSystem.service.UserService;
-import jakarta.persistence.GeneratedValue;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
