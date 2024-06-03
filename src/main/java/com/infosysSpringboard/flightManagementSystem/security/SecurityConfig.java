@@ -40,7 +40,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests((authorize) ->
-                //authorize.anyRequest().authenticated()
+
                 authorize.requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/users/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
@@ -49,7 +49,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/flights").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/flights").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/flights/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/schedule/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/schedule").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/schedule").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/schedule/**").hasRole("ADMIN")

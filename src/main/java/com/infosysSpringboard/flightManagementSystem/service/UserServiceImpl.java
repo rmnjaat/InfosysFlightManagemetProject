@@ -3,6 +3,8 @@ package com.infosysSpringboard.flightManagementSystem.service;
 import com.infosysSpringboard.flightManagementSystem.dao.UserRepository;
 import com.infosysSpringboard.flightManagementSystem.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,6 +51,13 @@ public class UserServiceImpl implements UserService{
     @Override
     public void deleteUser(int id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUserNameOrEmail(authentication.getName(),authentication.getName()).get();
+        return user;
     }
 
 
