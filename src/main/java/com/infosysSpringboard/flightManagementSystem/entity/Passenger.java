@@ -10,7 +10,6 @@ public class Passenger {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer uin;
-    private String pnr;
     private String name;
     private Integer age;
     private Double luggage;

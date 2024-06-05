@@ -2,6 +2,7 @@ package com.infosysSpringboard.flightManagementSystem.controller;
 
 import com.infosysSpringboard.flightManagementSystem.entity.Booking;
 import com.infosysSpringboard.flightManagementSystem.entity.Passenger;
+import com.infosysSpringboard.flightManagementSystem.entity.ScheduledFlight;
 import com.infosysSpringboard.flightManagementSystem.service.BookingService;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.web.bind.annotation.*;

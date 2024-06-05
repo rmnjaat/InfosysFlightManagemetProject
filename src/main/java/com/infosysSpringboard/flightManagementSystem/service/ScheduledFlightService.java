@@ -15,6 +15,7 @@ public interface ScheduledFlightService {
     List<ScheduledFlight> viewScheduledFlights(Integer flightNumber);
     ScheduledFlight modifyScheduledFlight(Flight flight, Schedule schedule,Integer seatCapacity);
     List<ScheduledFlight> deleteScheduledFlight(Integer id);
+    ScheduledFlight viewScheduledFlights(Integer id,Integer flightNumber);
     boolean validateScheduleFlight(ScheduledFlight scheduledFlight);
 
 

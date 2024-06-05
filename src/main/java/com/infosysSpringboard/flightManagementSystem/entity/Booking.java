@@ -21,5 +21,6 @@ public class Booking {
     @OneToOne
     private Flight flight;
     private Integer noOfPassengers;
+    private Integer pnr;
 
 }

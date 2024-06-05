@@ -88,6 +88,12 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService{
     }
 
     @Override
+    public ScheduledFlight viewScheduledFlights(Integer id, Integer flightNumber) {
+        Optional<Flight> flight = flightRepository.findById(flightNumber);
+        return scheduledFlightRepository.findByIdAndFlight(id,flight.get());
+    }
+
+    @Override
     public boolean validateScheduleFlight(ScheduledFlight scheduledFlight) {
         Optional<Flight> flight  = flightRepository.findById(scheduledFlight.getFlight().getFlightNumber());
         Airport source = scheduledFlight.getSchedule().getSource();

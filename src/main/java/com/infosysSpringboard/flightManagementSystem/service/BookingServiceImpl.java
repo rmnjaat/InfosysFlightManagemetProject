@@ -3,6 +3,7 @@ package com.infosysSpringboard.flightManagementSystem.service;
 import com.infosysSpringboard.flightManagementSystem.dao.BookingRepository;
 import com.infosysSpringboard.flightManagementSystem.entity.Booking;
 import com.infosysSpringboard.flightManagementSystem.entity.Passenger;
+import com.infosysSpringboard.flightManagementSystem.entity.ScheduledFlight;
 import com.infosysSpringboard.flightManagementSystem.entity.User;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +15,22 @@ public class BookingServiceImpl implements BookingService{
 
     private BookingRepository bookingRepository;
     private UserService userService;
-    private FlightService flightService;
+    private ScheduledFlightService scheduledFlightService;
 
-    public BookingServiceImpl(BookingRepository bookingRepository, UserService userService, FlightService flightService) {
+    public BookingServiceImpl(BookingRepository bookingRepository, UserService userService, ScheduledFlightService scheduledFlightService) {
         this.bookingRepository = bookingRepository;
         this.userService = userService;
-        this.flightService = flightService;
+        this.scheduledFlightService = scheduledFlightService;
     }
 
     @Override
     public List<Booking> addBooking(Booking booking) {
+        ScheduledFlight scheduledFlight = scheduledFlightService.viewScheduledFlights(booking.getPnr(),booking.getFlight().getFlightNumber());
+        if(scheduledFlight==null){
+            throw new RuntimeException("There are no available flights");
+        }
+        scheduledFlight.setAvailableSeats(scheduledFlight.getAvailableSeats()-booking.getNoOfPassengers());
+        booking.setCost(scheduledFlight.getCost()*booking.getNoOfPassengers());
         User user = userService.getCurrentUser();
         booking.setUserId(user.getUserId());
         booking.setDate(new Date());
@@ -33,7 +40,15 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     public List<Booking> modifyBooking(Booking booking) {
+        ScheduledFlight scheduledFlight = scheduledFlightService.viewScheduledFlights(booking.getPnr(),booking.getFlight().getFlightNumber());
+        if(scheduledFlight==null){
+            throw new RuntimeException("There are no available flights");
+        }
+        scheduledFlight.setAvailableSeats(scheduledFlight.getAvailableSeats()-booking.getNoOfPassengers());
+        booking.setCost(scheduledFlight.getCost()*booking.getNoOfPassengers());
         User user = userService.getCurrentUser();
+        booking.setUserId(user.getUserId());
+        booking.setDate(new Date());
         bookingRepository.save(booking);
         return bookingRepository.findAllByUserId(user.getUserId());
     }
@@ -61,6 +76,10 @@ public class BookingServiceImpl implements BookingService{
         if(!booking.getUserId().equals(user.getUserId())){
             throw new RuntimeException("Booking doesn't exists");
         }
+        ScheduledFlight scheduledFlight = scheduledFlightService.viewScheduledFlights(booking.getPnr(),booking.getFlight().getFlightNumber());
+        scheduledFlight.setAvailableSeats(scheduledFlight.getAvailableSeats()+booking.getNoOfPassengers());
+        booking.getPassengers().clear();
+        bookingRepository.save(booking);
         bookingRepository.deleteById(id);
         return bookingRepository.findAllByUserId(user.getUserId());
     }

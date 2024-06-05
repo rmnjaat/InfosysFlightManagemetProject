@@ -19,4 +19,5 @@ public class ScheduledFlight {
     private Schedule schedule;
 
     private Integer availableSeats;
+    private Double cost;
 }

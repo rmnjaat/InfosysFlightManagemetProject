@@ -2,6 +2,7 @@ package com.infosysSpringboard.flightManagementSystem.service;
 
 import com.infosysSpringboard.flightManagementSystem.dao.UserRepository;
 import com.infosysSpringboard.flightManagementSystem.entity.User;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,6 +51,14 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void deleteUser(int id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.getRoles().clear();
+            userRepository.save(user);
+        } else {
+            throw new EntityNotFoundException("User not found with ID: " + id);
+        }
         userRepository.deleteById(id);
     }
 

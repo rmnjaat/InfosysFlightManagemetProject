@@ -12,4 +12,5 @@ public interface ScheduledFlightRepository extends JpaRepository<ScheduledFlight
     List<ScheduledFlight> findAllByFlight(Flight flight);
     ScheduledFlight findByScheduleAndFlight(Schedule schedule, Flight flight);
     ScheduledFlight findByFlight(Flight flight);
+    ScheduledFlight findByIdAndFlight(Integer id,Flight flight);
 }
