@@ -72,11 +72,12 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService{
     }
 
     @Override
-    public ScheduledFlight modifyScheduledFlight(Flight flight, Schedule schedule, Integer seatCapacity) {
+    public ScheduledFlight modifyScheduledFlight(Flight flight, Schedule schedule, Integer seatCapacity , Double cost) {
         ScheduledFlight scheduledFlight = scheduledFlightRepository.findByFlight(flight);
         scheduledFlight.setFlight(flight);
         scheduledFlight.setSchedule(schedule);
         scheduledFlight.setAvailableSeats(seatCapacity);
+        scheduledFlight.setCost(cost);
         scheduledFlightRepository.save(scheduledFlight);
         return scheduledFlight;
     }

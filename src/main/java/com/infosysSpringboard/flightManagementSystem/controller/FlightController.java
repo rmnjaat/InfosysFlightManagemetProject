@@ -19,7 +19,7 @@ public class FlightController {
     }
 
     @GetMapping("/flights/{number}")
-    public Flight findFlight(@PathVariable Integer number){
+    public Flight findFlight(@PathVariable int number){
         return flightService.findFlight(number);
     }
 

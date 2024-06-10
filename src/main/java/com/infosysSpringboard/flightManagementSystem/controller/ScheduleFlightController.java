@@ -49,7 +49,8 @@ public class ScheduleFlightController {
         Flight flight = modifiedSchedule.getFlight();
         Schedule schedule = modifiedSchedule.getSchedule();
         Integer seatCapacity = modifiedSchedule.getAvailableSeats();
-        return scheduledFlightService.modifyScheduledFlight(flight,schedule,seatCapacity);
+        Double cost = modifiedSchedule.getCost();
+        return scheduledFlightService.modifyScheduledFlight(flight,schedule,seatCapacity,cost);
     }
 
     @DeleteMapping("/{id}")

@@ -1,4 +1,5 @@
 package com.infosysSpringboard.flightManagementSystem.controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.infosysSpringboard.flightManagementSystem.dao.RoleRepository;
 import com.infosysSpringboard.flightManagementSystem.dao.UserRepository;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthController {
 
     @Autowired
@@ -34,14 +36,10 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-
     @PostMapping("/login")
     public ResponseEntity<String> userLogin(@RequestBody LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getUserNameOrEmail(), loginDto.getPassword()));
-
-
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 

@@ -13,7 +13,7 @@ public interface ScheduledFlightService {
     List<ScheduledFlight> viewScheduledFlights();
     List<ScheduledFlight> viewScheduledFlights(String sourceCode, String destinationCode, LocalDate date);
     List<ScheduledFlight> viewScheduledFlights(Integer flightNumber);
-    ScheduledFlight modifyScheduledFlight(Flight flight, Schedule schedule,Integer seatCapacity);
+    ScheduledFlight modifyScheduledFlight(Flight flight, Schedule schedule,Integer seatCapacity, Double cost);
     List<ScheduledFlight> deleteScheduledFlight(Integer id);
     ScheduledFlight viewScheduledFlights(Integer id,Integer flightNumber);
     boolean validateScheduleFlight(ScheduledFlight scheduledFlight);

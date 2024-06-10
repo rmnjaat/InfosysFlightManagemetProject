@@ -57,6 +57,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated());
         http.httpBasic(Customizer.withDefaults());
         http.csrf(csrf -> csrf.disable());
+        http.cors(cors -> cors.disable());
         http.logout(logout-> logout.permitAll());
         return http.build();
     }
